@@ -1,0 +1,22 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.Navigation .NavLink {
+  margin-left: 10px;
+}
+
+.RegAndLog .NavLink {
+  margin-right: 10px;
+}
+
+.NavLink {
+  color: black;
+}
+
+.activeNavLink {
+  color: blue;
+}

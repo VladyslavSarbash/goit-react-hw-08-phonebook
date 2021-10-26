@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteContact } from '../Redux/Contact/contact-operation';
-import inLoader from '../Loader/loader';
-import { filterContacts, getLoader } from '../Redux/contacts-selectors';
+import { deleteContact } from '../../../Redux/Contact/contact-operation';
+import inLoader from '../../../Loader/loader';
+import {
+  filterContacts,
+  getLoader,
+} from '../../../Redux/Contact/contacts-selectors';
 
 function RenderContactList({ contacts, deleteContact, loader }) {
   return (
