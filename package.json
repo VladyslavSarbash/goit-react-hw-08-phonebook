@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/material": "^5.0.5",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -27,10 +31,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "netlify deploy -p",
     "prepush": "npm run deploy",
-    "push": "git add . && git commit -m 'feat:_add_register_user' && git push ",
-    "prepare": "husky install"
+    "push": "git add . && git commit -m 'style' && git push ",
+    "prepare": "husky install",
+    "site": "netlify open --site"
   },
   "eslintConfig": {
     "extends": [

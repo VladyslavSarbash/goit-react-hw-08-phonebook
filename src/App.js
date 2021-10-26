@@ -6,8 +6,11 @@ import { Homepage } from './components/Router/Homepage/Homepage';
 import { Contacts } from './components/Router/Contacts/Contacts';
 import { Navigation } from './components/Router/Navigation/Navigation';
 import { PageNotFound } from './components/Router/PageNotFound/PageNotFound';
-import { Login } from './components/Router/Login/Login';
-import { Register } from './components/Router/Register/Register';
+import CssBaseline from '@mui/material/CssBaseline';
+// import { Login } from './components/Router/Login/Login';
+// import { Register } from './components/Router/Register/Register';
+import SignUp from './components/Router/Register/SignUp';
+import SignIn from './components/Router/Login/SignIn';
 import { currentUser } from './components/Redux/RegisterAndLogin/RegAndLog-operation';
 import { PrivateRoute } from './components/Router/PrivateAndPublic/PrivateRoute';
 import { PublicRoute } from './components/Router/PrivateAndPublic/PublicRoute';
@@ -25,19 +28,22 @@ function App() {
     <section>
       {!isFetchcurrentUser && (
         <>
+          <CssBaseline />
           <div className="navigation">
             <Navigation />
           </div>
           <Switch>
-            <Route exact path="/" component={Homepage}></Route>
+            <Route exact path="/">
+              <Homepage />
+            </Route>
             <PrivateRoute path="/contacts">
               <Contacts />
             </PrivateRoute>
             <PublicRoute path="/register" redirectTo="/contacts" restricted>
-              <Register />
+              <SignUp />
             </PublicRoute>
             <PublicRoute path="/login" redirectTo="/contacts" restricted>
-              <Login />
+              <SignIn />
             </PublicRoute>
             <Route component={PageNotFound}></Route>
           </Switch>

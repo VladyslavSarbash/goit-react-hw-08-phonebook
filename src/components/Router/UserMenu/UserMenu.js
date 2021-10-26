@@ -1,3 +1,4 @@
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useSelector, useDispatch } from 'react-redux';
 import { userName } from '../../Redux/RegisterAndLogin/RegAndLog-selector';
 import s from './UserMenu.module.css';
@@ -9,9 +10,13 @@ export const UserMenu = () => {
 
   return (
     <div className={s.userLogout}>
-      <p>Добро пожаловать, {nameUser}!</p>
-      <button type="button" onClick={() => dispatch(userLogout())}>
-        Выход
+      <p className={s.paragraph}>Добро пожаловать, {nameUser}!</p>
+      <button
+        className={s.btnLogout}
+        type="button"
+        onClick={() => dispatch(userLogout())}
+      >
+        <LogoutIcon sx={{ fontSize: 36 }} />
       </button>
     </div>
   );

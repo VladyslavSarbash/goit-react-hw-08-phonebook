@@ -1,3 +1,5 @@
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filterAction } from '../../../Redux/Filter/filter-action';
@@ -5,16 +7,21 @@ import { filterValue } from '../../../Redux/Contact/contacts-selectors';
 
 function Filter({ filterValue, filter }) {
   return (
-    <label>
-      Find contacts by name
-      <input
-        type="text"
-        name="filter"
-        value={filter}
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        onChange={filterValue}
-      />
-    </label>
+    <>
+      <h2 className="title-contact">Контакты</h2>
+      <div className="filter-contacts">
+        <TextField
+          type="text"
+          name="filter"
+          value={filter}
+          onChange={filterValue}
+          required
+          id="outlined-required"
+          label="Поиск контакта"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        />
+      </div>
+    </>
   );
 }
 

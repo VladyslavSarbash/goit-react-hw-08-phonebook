@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   addContact,
   getContacts,
 } from '../../../Redux/Contact/contact-operation';
 import { getAllContacts } from '../../../Redux/Contact/contacts-selectors';
+
+const theme = createTheme();
 
 function ContactForm({ contacts, addContact, getContacts }) {
   const [state, setState] = useState({
@@ -17,6 +27,13 @@ function ContactForm({ contacts, addContact, getContacts }) {
     getContacts();
   }, [getContacts]);
 
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    checkContact();
+    reset();
+  };
+
   const checkContact = () => {
     contacts.find(({ name }) => {
       return name === state.name;
@@ -25,63 +42,86 @@ function ContactForm({ contacts, addContact, getContacts }) {
       : newContact();
   };
 
+  const textInput = e => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const newContact = () => {
     const { name, number } = state;
-    const newObj = { name, number };
 
-    addContact(newObj);
-  };
-
-  const formInput = ({ target }) => {
-    const { name, value } = target;
-    setState({ ...state, [name]: value });
-  };
-
-  const formSubmit = e => {
-    e.preventDefault();
-    checkContact();
-    reset();
+    addContact({
+      name,
+      number,
+    });
   };
 
   const reset = () => {
-    setState({ name: '', number: '' });
+    setState({
+      name: '',
+      number: '',
+    });
   };
 
   return (
-    <>
-      <h1>Phonebook</h1>
-      <form onSubmit={formSubmit}>
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            value={state.name}
-            placeholder="Kris Evans"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-            required
-            onChange={formInput}
-          />
-        </label>
-        <label>
-          Number
-          <input
-            type="tel"
-            name="number"
-            value={state.number}
-            placeholder="555-55-55"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-            required
-            onChange={formInput}
-          />
-        </label>
-        <button className="submit_form" type="submit">
-          Add contact
-        </button>
-      </form>
-    </>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>+</Avatar>
+          <Typography component="h1" variant="h5">
+            Новый контакт
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              value={state.name}
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Contact name"
+              name="name"
+              autoComplete="name"
+              onChange={textInput}
+              autoFocus
+            />
+            <TextField
+              value={state.number}
+              margin="normal"
+              required
+              fullWidth
+              name="number"
+              label="Number"
+              type="phone"
+              id="number"
+              autoComplete="number"
+              onChange={textInput}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Добавить
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

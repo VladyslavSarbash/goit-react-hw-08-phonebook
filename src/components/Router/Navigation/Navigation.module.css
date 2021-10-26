@@ -1,12 +1,16 @@
 .Header {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  align-items: center;
+  /* height: 80px; */
+}
+
+.Navigation,
+.RegAndLog {
+  display: flex;
 }
 
 .Navigation .NavLink {
-  margin-left: 10px;
 }
 
 .RegAndLog .NavLink {
@@ -14,7 +18,17 @@
 }
 
 .NavLink {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 15px;
   color: black;
+  transition: color 250ms ease;
+}
+
+.NavLink:hover,
+.NavLink:focus {
+  color: blue;
 }
 
 .activeNavLink {

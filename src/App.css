@@ -1,8 +1,17 @@
-h1,
-h2 {
+body {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+h1 {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
+}
+
+ul {
+  margin: 20px 0 0 0;
+  padding: 0;
 }
 
 a {
@@ -14,33 +23,39 @@ p {
   margin: 0;
 }
 
-form {
+button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+/* form {
   display: inline-flex;
   flex-direction: column;
   width: 300px;
   margin-left: 10px;
   border: 2px black solid;
-}
+} */
 
-label {
+/* label {
   display: flex;
   flex-direction: column;
   margin: 10px;
-}
+} */
 
-input {
+/* input {
   margin-top: 5px;
   width: 150px;
-}
+} */
 
-button {
+/* button {
   width: 100px;
 }
 
 .submit_form {
   margin-left: 10px;
   margin-bottom: 10px;
-}
+} */
 
 li {
   margin-bottom: 10px;
@@ -54,4 +69,19 @@ li {
 .navigation {
   border-bottom: 1px black solid;
   margin-bottom: 10px;
+}
+
+.title-contact {
+  display: flex;
+  justify-content: center;
+}
+
+.filter-contacts {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-list {
+  display: flex;
+  justify-content: center;
 }
