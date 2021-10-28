@@ -17,6 +17,7 @@ import {
   filterContacts,
   getLoader,
 } from '../../../Redux/Contact/contacts-selectors';
+import s from './ContactList.module.css';
 
 function RenderContactList({ contacts, deleteContact, loader }) {
   const [dense] = React.useState(false);
@@ -47,13 +48,15 @@ function RenderContactList({ contacts, deleteContact, loader }) {
                             edge="end"
                             aria-label="delete"
                             onClick={() => deleteContact(id)}
+                            className={s.iconButton}
+                            color="inherit"
                           >
                             <DeleteIcon />
                           </IconButton>
                         }
                       >
                         <ListItemAvatar>
-                          <Avatar>
+                          <Avatar className={s.avatar}>
                             <AccountCircleIcon sx={{ fontSize: 36 }} />
                           </Avatar>
                         </ListItemAvatar>

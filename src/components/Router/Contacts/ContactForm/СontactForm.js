@@ -22,10 +22,28 @@ function ContactForm({ contacts, addContact, getContacts }) {
     name: '',
     number: '',
   });
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     getContacts();
   }, [getContacts]);
+
+  useEffect(() => {
+    const { name, number } = state;
+
+    const validateNumber =
+      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/.test(
+        number,
+      );
+    const validateName =
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/.test(name);
+
+    if (validateNumber && validateName) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [state]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -43,9 +61,14 @@ function ContactForm({ contacts, addContact, getContacts }) {
   };
 
   const textInput = e => {
+    const { value, name } = e.target;
+    if (value.length > 25 && name === 'name') return;
+
+    if (value.length > 15 && name === 'number') return;
+
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -56,6 +79,8 @@ function ContactForm({ contacts, addContact, getContacts }) {
       name,
       number,
     });
+
+    getContacts();
   };
 
   const reset = () => {
@@ -63,6 +88,7 @@ function ContactForm({ contacts, addContact, getContacts }) {
       name: '',
       number: '',
     });
+    setDisable(true);
   };
 
   return (
@@ -87,30 +113,33 @@ function ContactForm({ contacts, addContact, getContacts }) {
             sx={{ mt: 1 }}
           >
             <TextField
+              required
               value={state.name}
               margin="normal"
-              required
               fullWidth
               id="name"
               label="Contact name"
               name="name"
+              placeholder="Kris Evans"
               autoComplete="name"
               onChange={textInput}
               autoFocus
             />
             <TextField
+              required
               value={state.number}
               margin="normal"
-              required
               fullWidth
               name="number"
               label="Number"
-              type="phone"
+              placeholder="555-55-55"
+              type="tel"
               id="number"
               autoComplete="number"
               onChange={textInput}
             />
             <Button
+              disabled={disable}
               type="submit"
               fullWidth
               variant="contained"
