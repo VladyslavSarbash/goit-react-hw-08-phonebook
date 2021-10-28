@@ -30,11 +30,12 @@ function ContactForm({ contacts, addContact, getContacts }) {
 
   useEffect(() => {
     const { name, number } = state;
-
+    // Если ввести 5 цифр подряд, то последующий ввод букв будет расцениваться, как true
     const validateNumber =
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/.test(
         number,
       );
+    // каждый 2 пробел, подряд, приводит к true
     const validateName =
       /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/.test(name);
 

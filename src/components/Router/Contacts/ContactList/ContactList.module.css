@@ -1,13 +1,21 @@
+.deleteIcon {
+  transition: color 250ms ease;
+}
+
 .iconButton {
-  transition: color 250ms ease, background-color 250ms ease;
+  transition: background-color 250ms ease;
 }
 
 .iconButton:focus,
 .iconButton:hover {
+  background-color: rgba(0, 0, 255, 0.3);
+}
+
+.iconButton:focus .deleteIcon,
+.iconButton:hover .deleteIcon {
   color: blue;
-  background-color: rgba(0, 0, 255, 0.4);
 }
 
 .avatar {
-  background-color: blue;
+  background-color: black;
 }

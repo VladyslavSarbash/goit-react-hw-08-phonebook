@@ -51,13 +51,16 @@ function RenderContactList({ contacts, deleteContact, loader }) {
                             className={s.iconButton}
                             color="inherit"
                           >
-                            <DeleteIcon />
+                            <DeleteIcon className={s.deleteIcon} />
                           </IconButton>
                         }
                       >
                         <ListItemAvatar>
-                          <Avatar className={s.avatar}>
-                            <AccountCircleIcon sx={{ fontSize: 36 }} />
+                          <Avatar>
+                            <AccountCircleIcon
+                              sx={{ fontSize: 40 }}
+                              className={s.avatar}
+                            />
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText

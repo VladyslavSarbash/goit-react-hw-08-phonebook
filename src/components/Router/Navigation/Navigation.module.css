@@ -21,9 +21,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 15px;
+  padding: 10px;
   color: black;
   transition: color 250ms ease;
+  font-size: 14px;
 }
 
 .NavLink:hover,

@@ -33,7 +33,7 @@
     "predeploy": "npm run build",
     "deploy": "netlify deploy -p",
     "prepush": "npm run deploy",
-    "push": "git add . && git commit -m 'validate_contacts_and_style' && git push ",
+    "push": "git add . && git commit -m 'style' && git push ",
     "prepare": "husky install",
     "site": "netlify open --site"
   },
