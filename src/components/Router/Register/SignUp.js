@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -8,27 +10,39 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
 import { newUserRegister } from '../../Redux/RegisterAndLogin/RegAndLog-operation';
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const [state, setState] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [disableBtn, setDisableBtn] = useState(true);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const { name, email, password } = state;
+    if (name && email && password.length >= 6) {
+      setDisableBtn(false);
+      return;
+    }
+    setDisableBtn(true);
+  }, [state]);
 
   const handleSubmit = event => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
 
-    dispatch(
-      newUserRegister({
-        name: data.get('name'),
-        email: data.get('email'),
-        password: data.get('password'),
-      }),
-    );
+    dispatch(newUserRegister(state));
+  };
 
-    console.log();
+  const formInput = e => {
+    setState(state => ({
+      ...state,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
@@ -63,6 +77,8 @@ export default function SignUp() {
                   label="Your name"
                   name="name"
                   autoComplete="name"
+                  onChange={formInput}
+                  helperText="example: Jack Richer"
                   autoFocus
                 />
               </Grid>
@@ -73,6 +89,8 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  helperText="example: JackRicher@gmail.com"
+                  onChange={formInput}
                   autoComplete="email"
                 />
               </Grid>
@@ -84,11 +102,14 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
+                  helperText="min 6 symbol"
+                  onChange={formInput}
                   autoComplete="new-password"
                 />
               </Grid>
             </Grid>
             <Button
+              disabled={disableBtn}
               type="submit"
               fullWidth
               variant="contained"
