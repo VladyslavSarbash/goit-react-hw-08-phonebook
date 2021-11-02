@@ -6,14 +6,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { notifySuccess, notifyError } from '../../../Notify/Notify';
 import PropTypes from 'prop-types';
 import {
   addContact,
   getContacts,
 } from '../../../Redux/Contact/contact-operation';
-import { getAllContacts } from '../../../Redux/Contact/contacts-selectors';
+import {
+  getAllContacts,
+  notifyStatus,
+} from '../../../Redux/Contact/contacts-selectors';
 
 const theme = createTheme();
 
@@ -23,6 +27,24 @@ function ContactForm({ contacts, addContact, getContacts }) {
     number: '',
   });
   const [disable, setDisable] = useState(true);
+  const notify = useSelector(notifyStatus);
+
+  useEffect(() => {
+    const { status, message } = notify;
+
+    switch (status) {
+      case 'error':
+        notifyError(message);
+        break;
+
+      case 'success':
+        notifySuccess(message);
+        break;
+
+      default:
+        return;
+    }
+  }, [notify]);
 
   useEffect(() => {
     getContacts();
@@ -121,7 +143,7 @@ function ContactForm({ contacts, addContact, getContacts }) {
               id="name"
               label="Contact name"
               name="name"
-              placeholder="Kris Evans"
+              helperText="example: Kris Evans"
               autoComplete="name"
               onChange={textInput}
               autoFocus
@@ -133,7 +155,7 @@ function ContactForm({ contacts, addContact, getContacts }) {
               fullWidth
               name="number"
               label="Number"
-              placeholder="555-55-55"
+              helperText="example: 555-55-55"
               type="tel"
               id="number"
               autoComplete="number"

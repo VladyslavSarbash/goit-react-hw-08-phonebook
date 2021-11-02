@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import { toast } from 'react-toastify';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const getContacts = createAsyncThunk('getContacts', async () => {
@@ -8,11 +9,10 @@ const getContacts = createAsyncThunk('getContacts', async () => {
 
 const addContact = createAsyncThunk('addContact', async contact => {
   await axios.post('/contacts', contact);
-  return contact;
 });
 
 const deleteContact = createAsyncThunk('deleteContact', async id => {
-  axios.delete(`/contacts/${id}`);
+  await axios.delete(`/contacts/${id}`);
   return id;
 });
 

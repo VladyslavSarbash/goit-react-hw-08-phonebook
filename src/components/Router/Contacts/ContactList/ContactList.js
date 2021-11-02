@@ -33,7 +33,7 @@ function RenderContactList({ contacts, deleteContact, loader }) {
         {loader ? (
           inLoader()
         ) : contacts.length === 0 ? (
-          <h2>No contacts</h2>
+          <h2>Контакты отсутсвует</h2>
         ) : (
           <>
             <Grid item xs={12} md={12}>
